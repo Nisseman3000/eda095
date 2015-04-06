@@ -40,7 +40,7 @@ public class Main {
 			}
 
 			for (int i = 0; i < urls.size(); i++) {
-				new Thread(new Runner(this)).start();
+				new Runner(this).run();
 			}
 
 		} catch (Exception e) {

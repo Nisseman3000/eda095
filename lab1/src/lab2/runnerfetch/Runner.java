@@ -8,14 +8,14 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class Runner implements Runnable {
+public class Runner{
 	Main m;
 
 	public Runner(Main m) {
 		this.m = m;
 	}
 
-	@Override
+	
 	public void run() {
 
 		try {

@@ -8,14 +8,14 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class Runner implements Runnable {
+public class Runner {
 	private URL url;
 
 	public Runner(URL url) {
 		this.url = url;
 	}
 
-	@Override
+	
 	public void run() {
 		Path p = Paths.get(url.getPath());
 		String file = p.getFileName().toString();

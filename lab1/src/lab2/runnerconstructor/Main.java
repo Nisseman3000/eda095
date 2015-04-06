@@ -36,7 +36,7 @@ public class Main {
 			}
 			for (String s : urls) {
 				URL tempURL = new URL(myDoc, s);
-				new Thread(new Runner(tempURL)).start();
+				new Runner(tempURL).run();
 			}
 
 		} catch (Exception e) {
