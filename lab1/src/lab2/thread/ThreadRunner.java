@@ -12,6 +12,7 @@ public class ThreadRunner extends Thread{
 	ThreadMain m;
 
 	public ThreadRunner(ThreadMain m) {
+		super();
 		this.m = m;
 	}
 
