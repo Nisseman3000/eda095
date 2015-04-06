@@ -19,7 +19,8 @@ public class Runner{
 	public void run() {
 
 		try {
-			URL url = m.getNextURL();
+			URL url;
+			while ((url = m.getNextURL()) != null){
 			Path p = Paths.get(url.getPath());
 			String file = p.getFileName().toString();
 
@@ -34,6 +35,7 @@ public class Runner{
 			}
 			fos.close();
 			System.out.println(file + " done!");
+			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}

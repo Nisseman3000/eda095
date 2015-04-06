@@ -5,12 +5,14 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
-	private ArrayList<String> urls;
+	private LinkedList<String> urls;
 	private int nextURL;
 	private URL myDoc;
 
@@ -26,7 +28,7 @@ public class Main {
 			}
 			scan.close();
 
-			urls = new ArrayList<String>();
+			urls = new LinkedList<String>();
 			nextURL = 0;
 
 			String patternURL = "<a\\s*?.*?\\s*?href=\"(.*?\\.pdf)\"\\s*?.*?\\s*?>(.*?)<\\/a>";
@@ -39,7 +41,7 @@ public class Main {
 				}
 			}
 
-			for (int i = 0; i < urls.size(); i++) {
+			for (int i = 0; i < 10; i++) {
 				new Runner(this).run();
 			}
 
@@ -49,7 +51,12 @@ public class Main {
 	}
 
 	public synchronized URL getNextURL() throws MalformedURLException {
-		return new URL(myDoc, urls.get(nextURL++));
+		if ( !urls.isEmpty()){
+		String url = urls.removeFirst();
+		return new URL(myDoc,url);		
+		}else{
+			return null;
+		}
 	}
 
 	public static void main(String[] args) {
