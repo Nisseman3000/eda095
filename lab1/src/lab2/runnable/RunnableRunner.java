@@ -1,4 +1,4 @@
-package lab2.runnerfetch;
+package lab2.runnable;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -8,10 +8,10 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class Runner{
-	Main m;
+public class RunnableRunner implements Runnable{
+	RunnableMain m;
 
-	public Runner(Main m) {
+	public RunnableRunner(RunnableMain m) {
 		this.m = m;
 	}
 

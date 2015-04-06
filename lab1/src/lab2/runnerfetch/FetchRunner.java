@@ -1,4 +1,4 @@
-package lab2.runnerconstructor;
+package lab2.runnerfetch;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -8,19 +8,23 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class Runner {
-	private URL url;
+public class FetchRunner{
+	FetchMain m;
 
-	public Runner(URL url) {
-		this.url = url;
+	public FetchRunner(FetchMain m) {
+		this.m = m;
 	}
 
 	
 	public void run() {
-		Path p = Paths.get(url.getPath());
-		String file = p.getFileName().toString();
-		System.out.println(file + " started!");
+
 		try {
+			URL url;
+			while ((url = m.getNextURL()) != null){
+			Path p = Paths.get(url.getPath());
+			String file = p.getFileName().toString();
+
+			System.out.println(file + " started!");
 			InputStream in = url.openStream();
 			FileOutputStream fos = new FileOutputStream(new File(file));
 			int length = -1;
@@ -30,10 +34,11 @@ public class Runner {
 				fos.write(buffer, 0, length);
 			}
 			fos.close();
+			System.out.println(file + " done!");
+			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		System.out.println(file + " done!");
 	}
 
 }

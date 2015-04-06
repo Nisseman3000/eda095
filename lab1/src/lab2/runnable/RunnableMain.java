@@ -1,4 +1,4 @@
-package lab2.runnerfetch;
+package lab2.runnable;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,12 +11,12 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Main {
+public class RunnableMain {
 	private LinkedList<String> urls;
 	private int nextURL;
 	private URL myDoc;
 
-	public Main() {
+	public RunnableMain() {
 		try {
 			myDoc = new URL(
 					"http://cs.lth.se/eda095/foerelaesningar/?no_cache=1");
@@ -42,7 +42,7 @@ public class Main {
 			}
 
 			for (int i = 0; i < 10; i++) {
-				new Runner(this).run();
+				new Thread(new RunnableRunner(this)).start();
 			}
 
 		} catch (Exception e) {
@@ -60,6 +60,6 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		Main m = new Main();
+		RunnableMain m = new RunnableMain();
 	}
 }

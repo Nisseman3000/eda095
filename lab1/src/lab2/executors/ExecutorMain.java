@@ -1,4 +1,4 @@
-package lab2.runnerconstructor;
+package lab2.executors;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -10,7 +10,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Main {
+public class ExecutorMain {
 	public static void main(String[] args) {
 
 		try {
@@ -36,7 +36,7 @@ public class Main {
 			}
 			for (String s : urls) {
 				URL tempURL = new URL(myDoc, s);
-				new Runner(tempURL).run();
+				new ExecutorRunner(tempURL).run();
 			}
 
 		} catch (Exception e) {
