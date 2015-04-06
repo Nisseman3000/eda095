@@ -8,7 +8,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ExecutorRunner {
+public class ExecutorRunner implements Runnable{
 	private URL url;
 
 	public ExecutorRunner(URL url) {

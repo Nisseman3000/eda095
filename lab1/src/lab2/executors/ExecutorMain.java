@@ -3,10 +3,12 @@ package lab2.executors;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,10 +36,15 @@ public class ExecutorMain {
 					urls.add(matcher.group(1));
 				}
 			}
+			
+			ExecutorService es = Executors.newFixedThreadPool(10); 
+			LinkedList<Future<?>> futures = new LinkedList<Future<?>>();
 			for (String s : urls) {
 				URL tempURL = new URL(myDoc, s);
-				new ExecutorRunner(tempURL).run();
+				futures.add(es.submit(new ExecutorRunner(tempURL)));
 			}
+			
+			es.shutdown();
 
 		} catch (Exception e) {
 			e.printStackTrace();
