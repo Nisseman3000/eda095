@@ -16,8 +16,9 @@ public class ExecutorMain {
 	public static void main(String[] args) {
 
 		try {
-			URL myDoc = new URL(
-					"http://cs.lth.se/eda095/foerelaesningar/?no_cache=1");
+			//URL myDoc = new URL(
+				//	"http://cs.lth.se/eda095/foerelaesningar/?no_cache=1");
+			URL myDoc = new URL("http://cs.lth.se/eda132-applied-artificial-intelligence/course-material/");
 			InputStream is = myDoc.openStream();
 			Scanner scan = new Scanner(new InputStreamReader(is));
 			ArrayList<String> website = new ArrayList<String>();
@@ -38,10 +39,10 @@ public class ExecutorMain {
 			}
 			
 			ExecutorService es = Executors.newFixedThreadPool(10); 
-			LinkedList<Future<?>> futures = new LinkedList<Future<?>>();
+			
 			for (String s : urls) {
 				URL tempURL = new URL(myDoc, s);
-				futures.add(es.submit(new ExecutorRunner(tempURL)));
+				es.submit(new ExecutorRunner(tempURL));
 			}
 			
 			es.shutdown();
