@@ -16,10 +16,12 @@ public class Mailbox {
 	}
 	
 	public synchronized String get(){
+		while(content.equals("")){
 		try {
 			wait();
 		} catch (InterruptedException e) {
 			System.out.println("Kaos i Båstad!");;
+		}
 		}
 		String tmp = content;
 		content = "";

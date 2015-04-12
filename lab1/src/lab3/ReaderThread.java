@@ -11,10 +11,8 @@ public class ReaderThread extends Thread {
 	public void run(){
 		while(true){
 			String tmp = m.get();
-			if (!tmp.equals(""))
+			//if (!tmp.equals(""))
 			System.out.print(tmp);
-			System.out.println(counter);
-			counter++;
 		}
 	}
 }
