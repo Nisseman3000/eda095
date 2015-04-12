@@ -3,13 +3,27 @@ package lab3;
 public class Mailbox {
 	private String content = "";
 	
-	public void set(String s){
+	public synchronized void set(String s){
+		while(s.isEmpty()){
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			System.out.println("Kaos i Båstad!");;
+		}
+	}
 		content += s;
+		notifyAll();
 	}
 	
-	public String get(){
+	public synchronized String get(){
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			System.out.println("Kaos i Båstad!");;
+		}
 		String tmp = content;
 		content = "";
+		notifyAll();
 		return tmp;
 	}
 }

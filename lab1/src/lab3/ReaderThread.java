@@ -2,7 +2,7 @@ package lab3;
 
 public class ReaderThread extends Thread {
 	private Mailbox m;
-	
+	private int counter = 0;
 	public ReaderThread(Mailbox m){
 		super();
 		this.m = m;
@@ -13,6 +13,8 @@ public class ReaderThread extends Thread {
 			String tmp = m.get();
 			if (!tmp.equals(""))
 			System.out.print(tmp);
+			System.out.println(counter);
+			counter++;
 		}
 	}
 }

@@ -15,7 +15,7 @@ public class DepositThread extends Thread{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			m.set(getName());
+			m.set(getName() + "\n");
 		}
 	}
 
