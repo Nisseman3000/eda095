@@ -20,6 +20,11 @@ public class ChatConsumer extends Thread {
 			String message = cb.get();
 			for (ChatParticipant p : participants) {
 				Socket socket = p.getSocket();
+				if (socket.isClosed()){
+					participants.remove(p);
+					System.out.println("Client closed " + socket.getInetAddress());
+					return;
+				}
 				try {
 					OutputStream stream = socket.getOutputStream();
 					stream.write(message.getBytes());

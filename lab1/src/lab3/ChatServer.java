@@ -15,11 +15,13 @@ public class ChatServer {
 				ChatBox cb = new ChatBox();
 				ChatConsumer cc = new ChatConsumer(cb,participants);
 				cc.start();
+				int index = 0;
 				boolean go = true;
 				while(go){
 					Socket socket = sSocket.accept();
-					ChatParticipant cp = new ChatParticipant(socket,cb);
+					ChatParticipant cp = new ChatParticipant(socket,cb,index);
 					participants.add(cp);
+					index++;
 				}
 				sSocket.close();
 				System.out.println("TERMINATED");

@@ -13,6 +13,7 @@ public class ChatParticipant {
 	private int port;
 	private Socket socket;
 	private ChatBox cb;
+	private int index;
 
 	/*
 	 * Om ni läser detta, när man kopplade upp sig mot en klient via telnet och
@@ -22,17 +23,26 @@ public class ChatParticipant {
 	 * alltså socket.getPort(), så den ger rätt port till varje telnet client.
 	 */
 
-	public ChatParticipant(Socket socket, ChatBox cb) {
+	public ChatParticipant(Socket socket, ChatBox cb, int index) {
 		super();
 		port = socket.getPort();
 		this.socket = socket;
 		this.cb = cb;
 		new ChatProducer(socket,cb).start();
+		this.index = index;
 	}
 	
 	public Socket getSocket(){
 		return socket;
 	}
 
+
+	@Override
+	public boolean equals(Object obj) {
+		ChatParticipant other = (ChatParticipant) obj;
+		return index == other.index;
+	}
+
+	
 	
 }
