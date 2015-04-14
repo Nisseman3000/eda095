@@ -28,8 +28,8 @@ public class ChatParticipant {
 		port = socket.getPort();
 		this.socket = socket;
 		this.cb = cb;
-		new ChatProducer(socket,cb).start();
 		this.index = index;
+		new ChatProducer(socket,cb).start();
 	}
 	
 	public Socket getSocket(){

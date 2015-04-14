@@ -29,6 +29,7 @@ public class ChatConsumer extends Thread {
 					OutputStream stream = socket.getOutputStream();
 					stream.write(message.getBytes());
 					stream.write('\n');
+					stream.flush();
 				} catch (IOException e) {
 					System.out.println("Could not write to "
 							+ socket.getInetAddress());

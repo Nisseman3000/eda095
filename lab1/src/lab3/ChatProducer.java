@@ -29,10 +29,10 @@ public class ChatProducer extends Thread {
 			InputStream is = socket.getInputStream();
 			OutputStream os = socket.getOutputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			String line = br.readLine();
+			String line;
 
 			
-			while (line != null) {
+			while ((line = br.readLine()) != null) {
 				if (line.startsWith("M:")){
 					String message = line.substring(2).trim();
 					System.out.println("Wrote to all " + message + " from " + socket.getInetAddress());
@@ -47,9 +47,6 @@ public class ChatProducer extends Thread {
 					System.out.println("Client " + socket.getInetAddress() + " wishes to close");
 					break;
 				}
-
-				
-				line = br.readLine();
 			}
 			System.out.println(socket.getInetAddress() + " disconnected");
 			socket.close();
