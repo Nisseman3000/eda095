@@ -22,7 +22,7 @@ public class ChatConsumer extends Thread {
 				Socket socket = p.getSocket();
 				if (socket.isClosed()){
 					participants.remove(p);
-					System.out.println("Client closed " + socket.getInetAddress());
+					System.out.println("Client " + socket.getInetAddress() + " had closed");
 					return;
 				}
 				try {

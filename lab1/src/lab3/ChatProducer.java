@@ -34,7 +34,9 @@ public class ChatProducer extends Thread {
 			
 			while (line != null) {
 				if (line.startsWith("M:")){
-					cb.set(line.substring(2).trim());
+					String message = line.substring(2).trim();
+					System.out.println("Wrote to all " + message + " from " + socket.getInetAddress());
+					cb.set(message);
 				}else if (line.startsWith("E:")){
 					String message = line.substring(2).trim();
 					System.out.println("Echoed " + message + " to " + socket.getInetAddress());
@@ -42,6 +44,7 @@ public class ChatProducer extends Thread {
 					os.write('\n');
 					os.flush();
 				}else if (line.startsWith("Q:")){
+					System.out.println("Client " + socket.getInetAddress() + " wishes to close");
 					break;
 				}
 
