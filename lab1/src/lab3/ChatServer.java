@@ -12,10 +12,14 @@ public class ChatServer {
 		public static void main(String[] args) {
 			try {
 				ServerSocket sSocket = new ServerSocket(30000);
+				ChatBox cb = new ChatBox();
+				ChatConsumer cc = new ChatConsumer(cb,participants);
+				cc.start();
 				boolean go = true;
 				while(go){
 					Socket socket = sSocket.accept();
-					participants.addElement(new ChatParticipant(socket));
+					ChatParticipant cp = new ChatParticipant(socket,cb);
+					participants.add(cp);
 				}
 				sSocket.close();
 				System.out.println("TERMINATED");
