@@ -27,11 +27,11 @@ public class WebCrawlerMain {
 
 		crawlPage(url);
 
-		System.out.println("Links:");
+		System.out.println("Collected Pages:");
 		for (URL s : collectedPages)
 			System.out.println(s.toString());
 
-		System.out.println("Emails:");
+		System.out.println("Collected Emails:");
 		for (String s : emails)
 			System.out.println(s.toString());
 
@@ -55,9 +55,8 @@ public class WebCrawlerMain {
 			}
 			Elements base = doc.getElementsByTag("base");
 			String baseString = base.attr("href");
-			System.out
-					.println("visitedpages.size() : " + collectedPages.size());
-			System.out.println("notVisitedpages.size() : "
+			System.out.println("collectedPages size: " + collectedPages.size());
+			System.out.println("notVisitedpages size: "
 					+ notVisitedPages.size());
 			System.out.println("EmailsSize: " + emails.size());
 
@@ -83,7 +82,7 @@ public class WebCrawlerMain {
 					boolean exist = false;
 					for (URL temp : notVisitedPages) {
 						if (temp.toString().equals(newUrl.toString())) {
-//							System.out.println("hrefLink: " + hrefLink);
+							// System.out.println("hrefLink: " + hrefLink);
 							exist = true;
 							break;
 						}
@@ -96,6 +95,7 @@ public class WebCrawlerMain {
 					e0.printStackTrace();
 				}
 			}
+			
 			for (Element email : eEmails) {
 				emails.add(email.attr("href"));
 			}
