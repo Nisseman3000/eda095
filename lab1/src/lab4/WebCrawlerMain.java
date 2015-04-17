@@ -55,12 +55,13 @@ public class WebCrawlerMain {
 			}
 			Elements base = doc.getElementsByTag("base");
 			String baseString = base.attr("href");
+			
 			System.out.println("collectedPages size: " + collectedPages.size());
-			System.out.println("notVisitedpages size: "
-					+ notVisitedPages.size());
+			System.out.println("notVisitedpages size: " + notVisitedPages.size());
 			System.out.println("EmailsSize: " + emails.size());
 
-			String searchString = "a[abs:href^=" + urlString + "]";
+			String searchString = "a[abs:href^=" + urlString + "]"; //Söker i eda095:s grenlänkar
+//			String searchString = "a[abs:href^=http]"; //Söker alla länkar
 			Elements eLinks = doc.select(searchString); // selectar alla a med
 														// href
 														// som börjar med "http"
