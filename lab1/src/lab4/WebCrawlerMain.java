@@ -81,7 +81,7 @@ public class WebCrawlerMain {
 				try {
 					URL newUrl = new URL(new URL(baseString), hrefLink);
 					boolean exist = false;
-					for (URL temp : notVisitedPages) {
+					for (URL temp : collectedPages) { // Innan stod det notVisitedPages /Fredrik
 						if (temp.toString().equals(newUrl.toString())) {
 							// System.out.println("hrefLink: " + hrefLink);
 							exist = true;
@@ -101,7 +101,7 @@ public class WebCrawlerMain {
 				emails.add(email.attr("href"));
 			}
 
-			collectedPages.add(url);
+			collectedPages.add(url); //Denna känns lite onödig?? Bara första länken som denna läger till. /Fredrik
 			url = notVisitedPages.poll();
 		}
 	}
