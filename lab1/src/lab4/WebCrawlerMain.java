@@ -13,7 +13,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class WebCrawlerMain {
-	private static final int MAX_PAGES = 100;
+	private static final int MAX_PAGES = 1000;
 	private HashSet<URL> collectedPages;
 	private LinkedList<URL> notVisitedPages;
 	private HashSet<String> emails;
@@ -23,7 +23,7 @@ public class WebCrawlerMain {
 		notVisitedPages = new LinkedList<URL>();
 		collectedPages = new HashSet<URL>();
 		emails = new HashSet<String>();
-		URL url = new URL("http://cs.lth.se/eda095/");
+		URL url = new URL("http://google.com");
 
 		crawlPage(url);
 
@@ -39,29 +39,32 @@ public class WebCrawlerMain {
 
 	public void crawlPage(URL url) {
 		notVisitedPages.add(url);
+		collectedPages.add(url);
 		while (collectedPages.size() < MAX_PAGES && notVisitedPages.size() > 0) {
 			String urlString = url.toString();
 			Document doc = null;
-			boolean pageFound = false;
-			while (!pageFound) {
-				try {
-					doc = Jsoup.connect(urlString).get();
-					pageFound = true;
-				} catch (IOException e) {
-					System.err
-							.println("Error: \"" + urlString + "\" not found");
-					pageFound = false;
-				}
+
+			try {
+				doc = Jsoup.connect(urlString).get();
+			} catch (IOException e) {
+				System.err.println("Error: \"" + urlString + "\" not found");
+				url = notVisitedPages.poll();
+				continue;
 			}
-			Elements base = doc.getElementsByTag("base");
-			String baseString = base.attr("href");
-			
+
+			//Elements base = doc.getElementsByTag("base");
+			//String baseString = base.attr("href");
+
 			System.out.println("collectedPages size: " + collectedPages.size());
-			System.out.println("notVisitedpages size: " + notVisitedPages.size());
+			System.out.println("notVisitedpages size: "
+					+ notVisitedPages.size());
 			System.out.println("EmailsSize: " + emails.size());
 
-			String searchString = "a[abs:href^=" + urlString + "]"; //Söker i eda095:s grenlänkar
-//			String searchString = "a[abs:href^=http]"; //Söker alla länkar
+			// String searchString = "a[abs:href^=" + urlString + "]"; // Söker
+			// i
+			// eda095:s
+			// grenlänkar
+			String searchString = "a[abs:href^=http]"; // Söker alla länkar
 			Elements eLinks = doc.select(searchString); // selectar alla a med
 														// href
 														// som börjar med "http"
@@ -77,31 +80,25 @@ public class WebCrawlerMain {
 																// "mailto:"
 
 			for (Element elink : eLinks) {
-				String hrefLink = elink.attr("href");
+				String hrefLink = elink.attr("abs:href");
 				try {
-					URL newUrl = new URL(new URL(baseString), hrefLink);
-					boolean exist = false;
-					for (URL temp : notVisitedPages) {
-						if (temp.toString().equals(newUrl.toString())) {
-							// System.out.println("hrefLink: " + hrefLink);
-							exist = true;
-							break;
-						}
-					}
-					if (!exist) {
+					// new URL(baseString),
+					URL newUrl = new URL(hrefLink);
+					if (!collectedPages.contains(newUrl.toString())) {
 						collectedPages.add(newUrl);
 						notVisitedPages.addLast(newUrl);
 					}
+
 				} catch (MalformedURLException e0) {
-					e0.printStackTrace();
+//					System.out.println("Base: " + baseString + " hrefLink: "
+//							+ hrefLink);
 				}
 			}
-			
+
 			for (Element email : eEmails) {
 				emails.add(email.attr("href"));
 			}
 
-			collectedPages.add(url);
 			url = notVisitedPages.poll();
 		}
 	}
