@@ -17,7 +17,6 @@ public class WebCrawlerMain {
 	private HashSet<URL> collectedPages;
 	private LinkedList<URL> notVisitedPages;
 	private HashSet<String> emails;
-	private Elements frames;
 
 	void crawl() throws IOException {
 		notVisitedPages = new LinkedList<URL>();
@@ -95,6 +94,14 @@ public class WebCrawlerMain {
 				}
 			}
 
+			for (Element frame : eFrames){
+				try {
+					notVisitedPages.addLast(new URL(frame.attr("abs:src")));
+				} catch (MalformedURLException e) {
+					System.err.println("SAD SMILEY FACE = :'-(");
+				}
+			}
+			
 			for (Element email : eEmails) {
 				emails.add(email.attr("href"));
 			}
