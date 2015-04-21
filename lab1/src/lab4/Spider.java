@@ -43,10 +43,11 @@ public class Spider {
 		System.out.println("Collected Pages:");
 		for (URL s : collectedPages)
 			System.out.println(s.toString());
-
+		System.out.println("Nbr of pages: " + collectedPages.size());
 		System.out.println("Collected Emails:");
 		for (String s : emails)
 			System.out.println(s.toString());
+		System.out.println("Nbr of emails: " + emails.size());
 
 	}
 

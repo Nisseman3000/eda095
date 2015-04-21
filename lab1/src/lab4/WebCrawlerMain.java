@@ -22,18 +22,19 @@ public class WebCrawlerMain {
 		notVisitedPages = new LinkedList<URL>();
 		collectedPages = new HashSet<URL>();
 		emails = new HashSet<String>();
-		URL url = new URL("http://google.com");
+		URL url = new URL("http://cs.lth.se/eda095/");
 
 		crawlPage(url);
 
 		System.out.println("Collected Pages:");
 		for (URL s : collectedPages)
 			System.out.println(s.toString());
-
+		System.out.println("collectedPages size: " + collectedPages.size());
+		
 		System.out.println("Collected Emails:");
 		for (String s : emails)
 			System.out.println(s.toString());
-
+		System.out.println("EmailsSize: " + emails.size());
 	}
 
 	public void crawlPage(URL url) {
@@ -96,7 +97,11 @@ public class WebCrawlerMain {
 
 			for (Element frame : eFrames){
 				try {
-					notVisitedPages.addLast(new URL(frame.attr("abs:src")));
+					URL newUrl = new URL(frame.attr("abs:src"));
+					if (!collectedPages.contains(newUrl.toString())) {
+						collectedPages.add(newUrl);
+						notVisitedPages.addLast(newUrl);
+					}
 				} catch (MalformedURLException e) {
 					System.err.println("SAD SMILEY FACE = :'-(");
 				}
